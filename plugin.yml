@@ -1,0 +1,4 @@
+name: F-Top
+main: com.hideorhunt.ftop.Main
+version: 1.0
+softdepend: [Factions]
