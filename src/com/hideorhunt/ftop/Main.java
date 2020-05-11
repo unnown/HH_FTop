@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -35,6 +34,7 @@ import net.milkbowl.vault.economy.Economy;
 
 public class Main extends JavaPlugin implements Listener
 {    
+	@SuppressWarnings("unused")
 	private Logger log = null;
 	private Economy economy = null;
 	private Essentials essentials = null;
@@ -122,15 +122,12 @@ public class Main extends JavaPlugin implements Listener
     @EventHandler(ignoreCancelled = true)
     public void onBlockPlaceEvent(BlockPlaceEvent event) {    	
     	Player player = (Player)event.getPlayer();
-    	
-    	Logger.debug(ChatColor.DARK_GREEN + "onBlockPlaceEvent.");
+
     	if (expensiveBlocks.contains(event.getBlock().getType())) {
-    		
-    		Logger.debug(ChatColor.DARK_GREEN + "1.");
+
     		FPlayer fplayer = FPlayers.getInstance().getByPlayer(player); 
 		    if(fplayer.hasFaction()) {	
-		    	
-		    	Logger.debug(ChatColor.DARK_GREEN + "2.");
+
 				List<Block> blocks = new ArrayList<Block>();
 				Faction fac = fplayer.getFaction();
 				
@@ -160,7 +157,6 @@ public class Main extends JavaPlugin implements Listener
 				}
 				
 				if (toRemove != null) {
-					log.log(Level.INFO, "removed block (break)");
 					entry.remove(toRemove);
 					facBlocks.put(key, entry);
 					this.changeValue(toRemove, key, false);
@@ -186,7 +182,6 @@ public class Main extends JavaPlugin implements Listener
 					}
 					
 					if (toRemove != null) {
-						log.log(Level.INFO, "removed block (explode)");
 						entry.remove(toRemove);
 						facBlocks.put(key, entry);
 						this.changeValue(toRemove, key, false);
@@ -221,7 +216,6 @@ public class Main extends JavaPlugin implements Listener
 					}
 					
 					if (toRemove != null) {
-						log.log(Level.INFO, "removed block (liquid)");
 						entry.remove(toRemove);
 						facBlocks.put(key, entry);
 						this.changeValue(toRemove, key, false);
@@ -235,7 +229,6 @@ public class Main extends JavaPlugin implements Listener
     @SuppressWarnings("deprecation")
 	private void changeValue(Block block, Faction fac, Boolean add) {
     	BigDecimal totalWorth = BigDecimal.ZERO;
-    	Logger.debug(ChatColor.DARK_GREEN + "changeValue.");
 
     	for (ItemStack stack : block.getDrops()) {
 	    	if (stack != null && stack.getType() != Material.AIR) {    		
